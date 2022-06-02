@@ -9,6 +9,15 @@ Public Const strNT = "Initial Catalog=process_os;"
 
 Sub Proc_TZ()
 
+'=================================================
+' 前月末日付を算出
+' 関東の前月データを更新--Proc_DataK (前月末日付)
+' 東海の前月データを更新--Proc_DataT (前月末日付)
+' 当月末日付を算出
+' 関東の当月データを更新--Proc_DataK (当月末日付)
+' 東海の当月データを更新--Proc_DataT (当月末日付)
+'=================================================
+
     Dim lngYYY  As Long    '年
     Dim lngMMM  As Long    '月
     Dim strMon  As String  '月末日付
@@ -62,6 +71,16 @@ End Sub
 
 Sub Proc_DataK(strMon As String)
 
+'==================================================================
+' 作業テーブルを作成
+' 作業テーブルへカクテルのトランデータ（売上・受注・仕入）を入れる
+' 作業テーブルへ営業計画から計画データを入れる
+' 作業テーブルのデータを一つにまとめる
+' 作業テーブルのデータを担当者毎にまとめる
+' 作業テーブルのデータを累計テーブルへ入れる
+' 作業テーブルを削除する
+'==================================================================
+
     '作業テーブル作成
     Call CR_TBL_URI
     Call CR_TBL_JUZ
@@ -71,10 +90,10 @@ Sub Proc_DataK(strMon As String)
     Call CR_TBL_NKT
 
     'データ取得
-    Call GET_URI_K(strMon)  '売上ﾄﾗﾝから関東の売上だけをW_KA_URIへ抽出
-    Call GET_JUC_K(strMon)  '受注ﾄﾗﾝから関東の受注だけをW_KA_JUZへ抽出
-    Call GET_SIR_K(strMon)  '仕入ﾄﾗﾝから関東の仕入だけをW_KA_SREへ抽出
-    Call GET_PLN_K(strMon)  '営業計画から関東の計画だけをW_KA_PLNへ抽出
+    Call GET_URI_K(strMon)  '売上ﾄﾗﾝ(UDNTRA)から関東の売上だけをW_KA_URIへ抽出
+    Call GET_JUC_K(strMon)  '受注ﾄﾗﾝ(JUZTBZ_Hybrid)から関東の受注だけをW_KA_JUZへ抽出
+    Call GET_SIR_K(strMon)  '仕入ﾄﾗﾝ(SDNTRA)から関東の仕入だけをW_KA_SREへ抽出
+    Call GET_PLN_K(strMon)  '年度計画から関東の計画だけをW_KA_PLNへ抽出
     Call GET_TOK_K(strMon)  'W_KA_NKテーブルに売上、受注、仕入、計画を入れる
     Call GET_TAN_K(strMon)  'W_KA_NKTテーブルに売上、受注、仕入、計画を入れる
     Call UP_DATA_K(strMon)  'W_KA_NKテーブルからNK_KJRへ
@@ -90,6 +109,8 @@ Sub Proc_DataK(strMon As String)
 
 
 End Sub
+
+'===== ここより下は作業テーブル作成＆削除手続き ======
 
 Sub Proc_DataT(strMon As String)
 
