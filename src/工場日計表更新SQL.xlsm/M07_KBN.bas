@@ -65,9 +65,6 @@ Function KBN_CHGT(strTCD As String, strGCD As String, strKBN As String, strKBP A
     '区分変更処理
     '============================================================================================================
     'Gｺｰﾄﾞで得意先を判定
-'    If strGCD = "0000000110215" Then
-'        Stop
-'    End If
     Select Case strGCD
         Case "0000000115024"
             KBN_CHGT = "A01" 'ﾀﾏﾎｰﾑ
@@ -130,6 +127,9 @@ Function KBN_CHGT(strTCD As String, strGCD As String, strKBN As String, strKBP A
             ElseIf strTCD = "0000000819004" Then
                 KBN_CHGT = "B04"
                 KBN_NAME = "本部(ﾎｸｴﾂ他)"
+            ElseIf strTCD = "0000000819005" Then
+                KBN_CHGT = "C01"
+                KBN_NAME = "鳥居金属（名古屋）"
             Else
                 '商品区分(HINKB)で判定
                 If Trim(strKBN) = "07" Or Trim(strKBN) = "16" Then      'ﾌﾞﾘｯｼﾞ

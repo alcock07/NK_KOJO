@@ -5,7 +5,15 @@ Declare Function GetComputerName Lib "kernel32" Alias "GetComputerNameA" (ByVal 
 Public Const MAX_COMPUTERNAME_LENGTH = 15
 Public start_time As Double
 Public end_time   As Double
-    
+
+'===== 概略 =====
+'関東アルコック、及び東海アルコックの売上日計データを作成する、毎日更新する
+'部門、グループコード、得意先コードで区分を判別、集計する。
+'データは売上、受注残、計画、仕入
+'累積テーブル（NK_KJR・NK_KJT）にセット
+'使用テーブル：Oracle（UDNTRA・SDNTRA・TOKMTA・HINMTA）
+'              SQLServer（年度計画・修正計画・JUZTBZ_Hybrid）
+
 Public Function CP_NAME() As String
 
     Const COMPUTERNAMBUFFER_LENGTH = MAX_COMPUTERNAME_LENGTH + 1
